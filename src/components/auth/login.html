@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora Finder v1.0.0</title>
+
+  <!-- Fuentes y estilos externos -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body class="fade">
+  <!-- Efecto de partículas -->
+  <div id="particles-container"></div>
+
+  <!-- Logo principal -->
+  <img src="../../../assets/Logo.png" style="width: 120px; justify-content: center;" alt="Logo Nexora">
+
+  <!-- Formulario de inicio de sesión -->
+  <div class="login-container">
+    <div class="login-title">Nexora Login</div>
+    <form id="loginForm">
+      <input type="text" class="login-input" id="username" placeholder="Usuario" required>
+      <input type="password" class="login-input" id="password" placeholder="Contraseña" required>
+      <button type="submit" class="login-button">Iniciar sesión</button>
+    </form>
+
+    <!-- Mensajes de error o éxito -->
+    <div id="messageBox" class="message"></div>
+  </div>
+
+  <!-- Script principal -->
+  <script src="login.js"></script>
+</body>
+</html>

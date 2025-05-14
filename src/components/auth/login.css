@@ -1,0 +1,163 @@
+:root {
+  --primary-color: #0a192f;
+  --secondary-color: #112240;
+  --accent-color: rgba(68, 139, 238, 0.8);
+  --text-primary: #e6f1ff;
+  --text-secondary: #8892b0;
+  --card-bg: rgba(17, 34, 64, 0.7);
+  --error-color: #ff3e3e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.fade {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+body.fade.show {
+  opacity: 1;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  transform: translateY(-40px);
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-image: url('../../../assets/Background.png');
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  background-size: cover;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.50s ease-in-out;
+}
+
+  #particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: fall linear infinite;
+  }
+  
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+.login-container {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  margin-top: -40px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 700px;
+  max-width: 300px;
+}
+
+.login-title {
+  text-align: center;
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 6px;
+  background-color: var(--secondary-color);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background-color: #2e3a59;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #4b9df9;
+}
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  } 
+
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  display: none;
+}
+
+.message.error {
+  background-color: #112240;
+  color: #d8000c;
+  border: 1px solid #d8000c;
+}
+
+.message.success {
+  background-color: #112240;
+  color: #007e33;
+  border: 1px solid #007e33;
+}

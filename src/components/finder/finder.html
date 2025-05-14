@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora Finder v1.0.0</title>
+
+  <!-- Estilos y fuentes -->
+  <link rel="stylesheet" href="finder.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Efecto de partículas -->
+  <div id="particles-container"></div>
+  
+  <!-- Encabezado con logo y botones de navegación -->
+  <header>
+    <img src="../../../assets/Logo.png" alt="Nexora Logo" style="height: 60px;">
+    <div class="header-buttons">
+      <button class="header-btn" onclick="window.location.href='../main/index.html'">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="header-btn" onclick="window.location.href='../settings/settings.html'">
+        <i class="fas fa-cogs"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main>
+    <div class="dashboard-container">
+
+      <!-- Formulario de búsqueda -->
+      <div class="card highlight">
+        <div class="icon-container"></div>
+        <h2>Búsqueda de Usuarios ⏷</h2>
+        <br>
+        <form id="searchForm" class="search-container">
+          <input id="queryInput" type="text" placeholder="Nickname de MC o una IP" class="search-input" required>
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Instrucciones de uso -->
+    <div class="card">
+      <h2>¿Cómo realizo una búsqueda?</h2>
+      <p>Ingresa un nombre de usuario o dirección IP en la barra superior.</p>
+      <p>Luego presiona Enter o haz clic en el icono de la lupa para buscar.</p>
+
+      <h2>¿Qué hago si no me encuentra el nick que busco?</h2>
+      <p>Prueba con otros nombres similares o cuentas relacionadas.</p>
+      <p>Es posible que el usuario no esté en la base de datos todavía.</p>
+     </div> 
+    </div>
+  </main>
+
+  <!-- Script principal -->
+  <script src="finder.js"></script>
+</body>
+</html>

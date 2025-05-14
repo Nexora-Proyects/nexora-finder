@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora Finder v1.0.0</title>
+
+  <!-- Fuentes y estilos externos -->
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <!-- Fondo animado -->
+  <div id="particles-container"></div>
+
+  <!-- Encabezado con logo y botón de logout -->
+  <header>
+    <img src="../../../assets/Logo.png" alt="Nexora Logo" style="height: 60px;">
+    <div class="user-info user-line" id="user-Info">
+      <p><strong id="name">-</strong></p>
+      <p id="role">-</p>
+      <p id="time">-</p>
+    </div>
+    <div class="header-buttons">
+      <button class="header-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Efecto de partículas -->
+  <main>
+    <div class="dashboard-container">
+
+      <!-- Tarjeta: Finder -->
+  <a href="../finder/finder.html" class="card-link">
+    <div class="card">
+     <div class="icon-container">
+      <img src="../../../assets/Allay (MInecraft Section).png" height="400" alt="FinderMC Image">
+      </div>
+       <h2>FINDER</h2>
+       <p>Realiza búsquedas de usuarios de Minecraft</p>
+      <div class="card-footer">Disponible para User, Admin</div>
+    </div>
+  </a>
+
+      <!-- Tarjeta: Herramientas -->
+  <a href="#" class="card-link"> <!-- Mantenimiento -->
+    <div class="card">
+     <div class="icon-container">
+      <img src="../../../assets/Warden (Herramientas Section).png" height="400" alt="FinderMC Image">
+      </div>
+       <h2>HERRAMIENTAS</h2>
+       <p>Acceso a todas las herramientas</p>
+      <div class="card-footer">Disponible para User, Admin</div>
+    </div>
+  </a>
+
+      <!-- Tarjeta: Configuración -->
+  <a href="../settings/settings.html" class="card-link">
+    <div class="card">
+     <div class="icon-container">
+      <img src="../../../assets/Villager (Settings Section).png" height="400" alt="FinderMC Image">
+      </div>
+       <h2>CONFIGURACION</h2>
+       <p>Personaliza y configura tu cuenta</p>
+      <div class="card-footer">Disponible para User, Admin</div>
+    </div>
+  </a>
+</div>
+
+  </div>
+</main>
+
+  <!-- Script principal -->
+  <script src="index.js"></script>
+</body>
+</html>
