@@ -48,10 +48,8 @@ async function autoLogin() {
         }, 500); 
       }, 1500); // Esperamos 1.5 segundos antes de redirigir
     } else {
-      console.warn("❌ El Token es inválido o ha expirado."); // Mostramos advertencia si el token es inválido
     }
   } catch (error) {
-    console.error("❌ Error en autologin:", error); // Mostramos cualquier error en el autologin
   }
 }
 
@@ -68,17 +66,17 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const username = document.getElementById("username").value; // Obtenemos el valor del campo de nombre de usuario
   const password = document.getElementById("password").value; // Obtenemos el valor del campo de contraseña
 
-  // Validación del nombre de usuario con expresión regular (alfanumérico de 1 a 8 caracteres)
-  const usernameRegex = /^[a-zA-Z0-9]{1,8}$/;
+  // Validación del nombre de usuario con expresión regular (alfanumérico de 1 a 24 caracteres)
+  const usernameRegex = /^[a-zA-Z0-9]{1,24}$/;
   if (!usernameRegex.test(username)) {
-    showMessage("❌ La nombre no cumple el formato permitido", "error"); // Si el formato no es válido, mostramos un error
+    showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
     return;
   }
 
-  // Validación de la contraseña con expresión regular (alfanumérico de 1 a 8 caracteres)
-  const passwordRegex = /^[a-zA-Z0-9]{1,8}$/;
+  // Validación de la contraseña con expresión regular (alfanumérico de 1 a 24 caracteres)
+  const passwordRegex = /^[a-zA-Z0-9]{1,24}$/;
   if (!passwordRegex.test(password)) {
-    showMessage("❌ La contraseña no cumple el formato permitido", "error"); // Si el formato no es válido, mostramos un error
+    showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
     return;
   }
 
@@ -112,7 +110,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
       }, 1500); // Esperamos 1.5 segundos antes de redirigir
     }
   } catch (error) {
-    console.error("Error en el login:", error); // Mostramos errores si ocurren
-    showMessage("❌ Ha ocurrido un error con la API", "error"); // Mostramos un mensaje de error si la API falla
+    showMessage("⚠️ Api Off/Maintenaince", "error"); // Mostramos un mensaje de error si la API falla
   }
 });

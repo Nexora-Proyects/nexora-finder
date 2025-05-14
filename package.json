@@ -1,15 +1,20 @@
 {
   "name": "nexora",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build:css": "npx tailwindcss -i ./src/style.css -o ./src/dist/output.css --watch",
     "build": "electron-builder"
   },
+  "repository": "https://github.com/Nexora-Proyects/nexora-finder",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },  
   "devDependencies": {
     "autoprefixer": "^10.4.14",
-    "electron": "^29.0.0",
+    "electron": "^29.4.6",
     "electron-builder": "^26.0.12",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.4.1"
@@ -18,7 +23,7 @@
     "axios": "^1.9.0",
     "discord-rpc": "^4.0.1",
     "dotenv": "^16.5.0",
-    "electron-updater": "^6.1.1",
+    "electron-updater": "^6.6.2",
     "jwt-decode": "^4.0.0",
     "semver": "^7.7.1"
   },
@@ -26,7 +31,8 @@
     "appId": "com.nexora.id",
     "productName": "Nexora Finder",
     "win": {
-      "icon": "assets/Logo.ico"
+      "icon": "assets/Logo.ico",
+      "target": "nsis"
     },
     "asar": true,
     "files": [

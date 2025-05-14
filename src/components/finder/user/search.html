@@ -33,10 +33,15 @@
           <i class="fas fa-search"></i>
         </button>
 
-        <!-- Botón adicional al lado de la wordlist -->
-        <button type="button" class="entry-bot-button flex items-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all" onclick="openModal()">
+        <!-- Botón AutoCheck -->
+        <button type="button" class="check-modal-button check-modal flex items-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all" onclick="CheckopenModal()">
           <i class="fas fa-robot text-2xl text-blue-900 mr-2"></i>
         </button>
+
+        <!-- Botón Dehash -->
+        <button type="button" class="dehash-modal dehash-modal-button flex items-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all" onclick="DehashopenModal()">
+          <i class="fas fa-hashtag text-2xl text-blue-900 mr-2"></i>
+        </button>        
       </form>
 
       <!-- Selector de base de datos -->
@@ -63,8 +68,8 @@
     <div class="results-container" id="results"></div>
   </div>
 
-  <!-- Modal (ventana emergente) -->
-  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+  <!-- Modal AutoCheck -->
+  <div id="check-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-8 rounded-lg shadow-lg w-96">
       <h2 class="text-xl font-semibold mb-4">AutoCheck</h2>
 
@@ -89,7 +94,28 @@
 
         <!-- Botones de acción -->
         <div class="flex justify-between mt-4">
-          <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="closeModal()">Cerrar</button>
+          <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="CheckcloseModal()">Cerrar</button>
+          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- Modal Dehash -->
+  <div id="dehash-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4">Dehash</h2>
+
+      <!-- Campos para la peticion -->
+      <form id="form-dehash" class="space-y-4">
+        <div>
+          <label for="hash" class="block text-sm font-medium text-gray-700">Hash</label>
+          <input type="text" id="hash" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="MD5, SHA1, SHA256, SHA512">
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex justify-between mt-4">
+          <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="DehashcloseModal()">Cerrar</button>
           <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
         </div>
       </form>

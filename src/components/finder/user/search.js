@@ -9,6 +9,7 @@ const token = localStorage.getItem("access_token");
 const resultsDiv = document.getElementById("results");
 const databaseSelect = document.getElementById("databaseSelect");
 
+let selectedUsername = null;
 
 // Notificaciones
 function showNotification(title, body) {
@@ -20,8 +21,8 @@ function showNotification(title, body) {
 
 // Lista de bases de datos disponibles para la búsqueda
 const databases = [
-  { value: "nexora1.txt", label: "nexora1.txt (5M)" },
-  { value: "nexora2.txt", label: "nexora2.txt (5M)" },
+  { value: "Nexora_1", label: "nexora1.txt (20M)" },
+  { value: "Nexora_2", label: "nexora2.txt (20M)" },
 ];
 
 // Función para crear partículas animadas en la pantalla para un efecto visual dinámico
@@ -116,6 +117,7 @@ const updateFooter = (name, isPremium) => {
 
 // Función principal para obtener los resultados de la búsqueda de un jugador
 const fetchResults = async (nick) => {
+  selectedUsername = nick;
   // Actualización del pie de página con un "cargando"
   const footer = document.getElementById("footer");
   resultsDiv.innerHTML = `
@@ -201,16 +203,17 @@ const populateDatabaseSelector = () => {
   });
 };
 
-  // Función para abrir el modal
-  function openModal() {
-    document.getElementById('modal').classList.add('show');
+  // Función para abrir el autocheck
+  function CheckopenModal() {
+    document.getElementById('dehash-modal').classList.remove('show');
+    document.getElementById('check-modal').classList.add('show');
     document.getElementById('overlay').style.display = 'block'; 
     document.body.style.overflow = 'hidden';
   }
 
-  // Función para cerrar el modal
-  function closeModal() {
-    document.getElementById('modal').classList.remove('show');
+  // Función para cerrar el autocheck
+  function CheckcloseModal() {
+    document.getElementById('check-modal').classList.remove('show');
     document.getElementById('overlay').style.display = 'none'; 
     document.body.style.overflow = 'auto'; 
   }
@@ -242,7 +245,57 @@ document.getElementById('form').addEventListener('submit', async function (e) {
     }
 
   } catch (error) {
-    showNotification('⚠️ Error de conexión', error.message);
+    showNotification('⚠️ Api Off/Maintenaince', error.message);
+  }
+});
+
+  // Función para abrir el dehash
+  function DehashopenModal() {
+    document.getElementById('check-modal').classList.remove('show');
+    document.getElementById('dehash-modal').classList.add('show');
+    document.getElementById('overlay').style.display = 'block'; 
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Función para cerrar el dehash
+  function DehashcloseModal() {
+    document.getElementById('dehash-modal').classList.remove('show');
+    document.getElementById('overlay').style.display = 'none'; 
+    document.body.style.overflow = 'auto'; 
+  }
+
+// Manejar el formulario de dehash
+document.getElementById('form-dehash').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const hash = document.getElementById('hash').value.trim();
+  const wordlist = document.getElementById('databaseSelect').value;
+
+  if (!selectedUsername || !hash || !wordlist) {
+    showNotification('⚠️ Campos incompletos', 'Debes introducir un Hash');
+    return;
+  }
+
+  const API_DEHASH_URL = `https://finder.minecloud.lol/api/v2/mc/dehash/${encodeURIComponent(selectedUsername)}/${encodeURIComponent(wordlist)}/${encodeURIComponent(hash)}`;
+
+  try {
+    const response = await fetch(API_DEHASH_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      showNotification('✅ Dehasheo Exitoso', result.message || 'Hash descifrado correctamente');
+    } else {
+      showNotification('❌ Dehasheo Fallido', result.message || 'No se pudo descifrar el hash');
+    }
+
+  } catch (error) {
+    showNotification('⚠️ Api Off/Maintenaince', error.message);
   }
 });
 

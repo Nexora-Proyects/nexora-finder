@@ -6,12 +6,19 @@ function showNotification(title, body) {
   });
 }
 
+const passwordRegex = /^[a-zA-Z0-9]{1,24}$/;
+
 document.querySelector('.confirm-button').addEventListener('click', async () => {
   const currentPassword = document.querySelectorAll('.pass-input')[0].value;
   const newPassword = document.querySelector('#ipInput').value;
 
   const username = localStorage.getItem('name');
   const token = localStorage.getItem('access_token'); 
+
+  if (!passwordRegex.test(currentPassword) || !passwordRegex.test(newPassword)) {
+    showNotification("❌ La Contraseña  Actual/Nueva es invalida.", "error");
+    return;
+  }
 
   if (!username || !token) {
     alert('Token invalido');
@@ -41,7 +48,7 @@ document.querySelector('.confirm-button').addEventListener('click', async () => 
     }
 
   } catch (err) {
-    showNotification(`⛔ Error de red: ${err.message}`);
+    showNotification('⚠️ Api Off/Maintenaince', err.message);
   }
 });
 

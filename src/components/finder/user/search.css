@@ -40,7 +40,7 @@ body {
   pointer-events: none;
 }
 
-.entry-bot-button {
+.check-modal-button {
   margin-left: 10px;
   padding: 12px 15px;
   background-color: rgba(17, 34, 64, 0.7);
@@ -51,16 +51,16 @@ body {
   font-size: 14px;
 }
 
-.entry-bot-button:hover {
+.check-modal-button:hover {
   background-color: #2e3a59;
   transform: scale(1.05);
 }
 
-.entry-bot-button:active {
+.check-modal-button:active {
   transform: scale(0.95);
 }
 
-#modal {
+#check-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -75,13 +75,13 @@ body {
   transition: opacity 0.3s ease, visibility 0s 0.3s; 
 }
 
-#modal.show {
+#check-modal.show {
   visibility: visible;
   opacity: 1; 
   transition: opacity 0.3s ease;
 }
 
-#modal .bg-white {
+#check-modal .bg-white {
   background-color: rgba(11, 25, 49, 0.85); 
   padding: 25px;
   border-radius: 12px; 
@@ -91,18 +91,18 @@ body {
   transition: transform 0.3s ease;
 }
 
-#modal .bg-white:hover {
+#check-modal .bg-white:hover {
   transform: translateY(-5px); 
 }
 
-#modal .bg-white h2 {
+#check-modal .bg-white h2 {
   font-size: 1.8rem;
   margin-bottom: 20px;
-  color: #f3f4f6; 
+  color: rgba(68, 139, 238, 0.8);
   font-weight: 600;
 }
 
-#modal input[type="text"] {
+#check-modal input[type="text"] {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
@@ -114,18 +114,18 @@ body {
   transition: border-color 0.3s ease;
 }
 
-#modal input[type="text"]:focus {
+#check-modal input[type="text"]:focus {
   border-color: #3b82f6; 
   outline: none;
 }
 
-#modal .flex {
+#check-modal .flex {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
 
-#modal button {
+#check-modal button {
   padding: 12px 18px;
   border-radius: 10px; 
   border: none;
@@ -135,27 +135,142 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#modal button:hover {
+#check-modal button:hover {
   transform: translateY(-2px); 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
 }
 
-#modal .bg-gray-500 {
+#check-modal .bg-gray-500 {
   background-color: #6b7280; 
 }
 
-#modal .bg-gray-500:hover {
+#check-modal .bg-gray-500:hover {
   background-color: #4b5563; 
 }
 
-#modal .bg-blue-500 {
+#check-modal .bg-blue-500 {
   background-color: rgba(68, 139, 238, 0.8);
 }
 
-#modal .bg-blue-500:hover {
+#check-modal .bg-blue-500:hover {
   background-color: rgba(68, 139, 238, 0.8);
 }
 
+.dehash-modal-button {
+  margin-left: 10px;
+  padding: 12px 15px;
+  background-color: rgba(17, 34, 64, 0.7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dehash-modal-button:hover {
+  background-color: #2e3a59;
+  transform: scale(1.05);
+}
+
+.dehash-modal-button:active {
+  transform: scale(0.95);
+}
+
+#dehash-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden; 
+  opacity: 0; 
+  transition: opacity 0.3s ease, visibility 0s 0.3s; 
+}
+
+#dehash-modal.show {
+  visibility: visible;
+  opacity: 1; 
+  transition: opacity 0.3s ease;
+}
+
+#dehash-modal .bg-white {
+  background-color: rgba(11, 25, 49, 0.85); 
+  padding: 25px;
+  border-radius: 12px; 
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease;
+}
+
+#dehash-modal .bg-white:hover {
+  transform: translateY(-5px); 
+}
+
+#dehash-modal .bg-white h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: rgba(68, 139, 238, 0.8);
+  font-weight: 600;
+}
+
+#dehash-modal input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #1f2937; 
+  color: #f3f4f6; 
+  border-radius: 10px; 
+  font-size: 1rem;
+  border: 1px solid #4b5563; 
+  transition: border-color 0.3s ease;
+}
+
+#dehash-modal input[type="text"]:focus {
+  border-color: #3b82f6; 
+  outline: none;
+}
+
+#dehash-modal .flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#dehash-modal button {
+  padding: 12px 18px;
+  border-radius: 10px; 
+  border: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#dehash-modal button:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+
+#dehash-modal .bg-gray-500 {
+  background-color: #6b7280; 
+}
+
+#dehash-modal .bg-gray-500:hover {
+  background-color: #4b5563; 
+}
+
+#dehash-modal .bg-blue-500 {
+  background-color: rgba(68, 139, 238, 0.8);
+}
+
+#dehash-modal .bg-blue-500:hover {
+  background-color: rgba(68, 139, 238, 0.8);
+}
 
 .particle {
   position: absolute;

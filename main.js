@@ -1,9 +1,11 @@
 require('dotenv').config();
-const { app, BrowserWindow, Notification, shell } = require('electron'); 
+const { app, BrowserWindow, Notification } = require('electron');
 const path = require('path');
 const RPC = require("discord-rpc");
-const axios = require('axios'); 
-const semver = require('semver');
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
 
 const clientId = "1337657143482126346";
 RPC.register(clientId);
@@ -33,38 +35,28 @@ rpc.on("ready", () => {
 
 rpc.login({ clientId }).catch(console.error);
 
-const currentVersion = '1.0.0';
-const releaseAPIUrl = 'https://api.github.com/repos/Nexora-Proyects/Nexora-Finder/releases/latest'; 
-
-function checkForUpdates() {
-  app.setName("Nexora Finder");
-
-  axios.get(releaseAPIUrl)
-    .then(response => {
-      const latestVersion = response.data.tag_name;
-
-      if (semver.gt(latestVersion, currentVersion)) {
-
-        const notification = new Notification({
-          title: 'Nueva Actualización disponible',
-          body: `Versión ${latestVersion} disponible en GitHub.`,
-          icon: path.join(__dirname, 'assets', 'Logo.png'),
-          silent: false
-        });
-
-        notification.onclick = () => {
-          shell.openExternal('https://github.com/Nexora-Proyects/Nexora-Finder');
-        };
-
-        notification.show();
-      } else {
-    }
+autoUpdater.on('update-available', (info) => {
+  const notification = new Notification({
+    title: 'Nueva Actualización Disponible',
+    body: `Descargando la versión ${info.version}...`,
+    icon: path.join(__dirname, 'assets', 'Logo.png'),
+    silent: false
   });
-}
+  notification.show();
+});
 
-app.whenReady().then(() => {
-  checkForUpdates(); 
-  createWindow();
+autoUpdater.on('update-downloaded', () => {
+  const notification = new Notification({
+    title: 'Actualización Lista',
+    body: 'La app se reiniciará para instalar la nueva versión.',
+    icon: path.join(__dirname, 'assets', 'Logo.png'),
+    silent: false
+  });
+  notification.show();
+
+  setTimeout(() => {
+    autoUpdater.quitAndInstall();
+  }, 5000); 
 });
 
 function createWindow() {
@@ -83,6 +75,11 @@ function createWindow() {
   win.loadFile('src/components/auth/login.html');
   win.maximize();
 }
+
+app.whenReady().then(() => {
+  createWindow();
+  autoUpdater.checkForUpdates(); 
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
