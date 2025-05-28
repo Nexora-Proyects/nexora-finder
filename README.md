@@ -16,3 +16,5 @@ npm install
 npm install electron --save-dev
 npm start
 ```
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Nexora-Proyects/nexora-finder)
