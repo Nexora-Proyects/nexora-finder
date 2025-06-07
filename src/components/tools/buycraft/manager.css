@@ -32,7 +32,7 @@
   .header-buttons {
     display: flex;
     gap: 1rem;
-    margin-left: 1692px;
+    justify-content: flex-end;
   }
   
   .header-btn {
