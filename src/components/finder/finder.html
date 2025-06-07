@@ -55,9 +55,37 @@
       <p>Es posible que el usuario no esté en la base de datos todavía.</p>
      </div> 
     </div>
+
+  <h1 class="random-title">Cuenta Aleatoria</h1>  
+ 
+  <div class="result-account" id="apiResult" style="display: none;">
+    <div class="result-header">
+      <img id="playerHead" src="../../../assets/Logo.png" alt="Server-Icon" class="result-avatar" />
+      <div class="result-info">
+      <div class="result-title" id="resultName"></div>
+      <div class="result-server" id="resultServer"></div>
+    </div>
+  </div>
+
+  <div class="result-content">
+    <div class="detail-row">
+      <span class="detail-label">Compra:</span>
+      <span class="detail-value" id="resultPurchase"></span>
+    </div>
+        <div class="detail-row">
+      <span class="detail-label">Fecha:</span>
+      <span class="detail-value" id="resultDate"></span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">IP del servidor:</span>
+      <span class="detail-value" id="resultServerIp"></span>
+    </div>
+  </div>
   </main>
 
   <!-- Script principal -->
   <script src="finder.js"></script>
+  <script src="../particles.js"></script>
+  
 </body>
 </html>

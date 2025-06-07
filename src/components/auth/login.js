@@ -1,16 +1,3 @@
-// Seleccionamos el contenedor de partículas en la página
-const container = document.getElementById('particles-container');
-
-// Creamos 100 partículas con posiciones, tamaños y duraciones de animación aleatorias
-for (let i = 0; i < 100; i++) {
-  const particle = document.createElement('div'); // Creamos un nuevo div para la partícula
-  particle.className = 'particle'; // Le asignamos la clase 'particle' para el estilo
-  particle.style.left = `${Math.random() * 100}%`; // Posicionamos aleatoriamente a lo largo del eje X
-  particle.style.animationDuration = `${Math.random() * 5 + 5}s`; // Duración de animación aleatoria entre 5s y 10s
-  particle.style.width = particle.style.height = `${Math.random() * 4 + 2}px`; // Establecemos tamaño aleatorio entre 2px y 6px
-  container.appendChild(particle); // Añadimos la partícula al contenedor
-}
-
 // Función para mostrar un mensaje en la pantalla con el tipo y la animación correspondiente
 function showMessage(message, type) {
   const messageBox = document.getElementById("messageBox"); // Obtenemos el elemento donde se mostrará el mensaje
@@ -67,14 +54,14 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const password = document.getElementById("password").value; // Obtenemos el valor del campo de contraseña
 
   // Validación del nombre de usuario con expresión regular (alfanumérico de 1 a 24 caracteres)
-  const usernameRegex = /^[a-zA-Z0-9]{1,24}$/;
+  const usernameRegex = /^[a-zA-Z0-9_-]{1,24}$/;
   if (!usernameRegex.test(username)) {
     showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
     return;
   }
 
   // Validación de la contraseña con expresión regular (alfanumérico de 1 a 24 caracteres)
-  const passwordRegex = /^[a-zA-Z0-9]{1,24}$/;
+  const passwordRegex = /^[a-zA-Z0-9_-]{1,24}$/;
   if (!passwordRegex.test(password)) {
     showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
     return;

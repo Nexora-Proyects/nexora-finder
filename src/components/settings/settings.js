@@ -6,7 +6,7 @@ function showNotification(title, body) {
   });
 }
 
-const passwordRegex = /^[a-zA-Z0-9]{1,24}$/;
+const passwordRegex = /^[a-zA-Z0-9_-]{1,24}$/;
 
 document.querySelector('.confirm-button').addEventListener('click', async () => {
   const currentPassword = document.querySelectorAll('.pass-input')[0].value;
@@ -16,7 +16,7 @@ document.querySelector('.confirm-button').addEventListener('click', async () => 
   const token = localStorage.getItem('access_token'); 
 
   if (!passwordRegex.test(currentPassword) || !passwordRegex.test(newPassword)) {
-    showNotification("❌ La Contraseña  Actual/Nueva es invalida.", "error");
+    showNotification("❌ La Contraseña  Actual/Nueva es invalida.");
     return;
   }
 
@@ -77,35 +77,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-// Función para crear una partícula dentro del contenedor proporcionado
-function createParticle(container) {
-  // Crea un nuevo elemento div para representar la partícula
-  const particle = document.createElement('div');
-  particle.classList.add('particle');
-
-  // Genera valores aleatorios para la posición, tamaño, duración y retraso de la animación de la partícula
-  const posX = Math.random() * 100; // Posición aleatoria en el eje X (porcentaje)
-  const posY = Math.random() * -100; // Posición aleatoria en el eje Y (porcentaje negativo para que inicie fuera de la vista)
-  const size = Math.random() * 3 + 1; // Tamaño aleatorio entre 1 y 4 píxeles
-  const duration = Math.random() * 30 + 10; // Duración aleatoria entre 10 y 40 segundos
-  const delay = Math.random() * 5; // Retraso aleatorio antes de que la animación comience
-
-  // Asigna las propiedades de estilo a la partícula generada
-  particle.style.left = `${posX}%`;
-  particle.style.top = `${posY}px`;
-  particle.style.width = `${size}px`;
-  particle.style.height = `${size}px`;
-  particle.style.animationDuration = `${duration}s`;
-  particle.style.animationDelay = `${delay}s`;
-
-  // Añade la partícula al contenedor
-  container.appendChild(particle);
-
-  // Establece un temporizador para eliminar la partícula después de que su animación haya terminado,
-  // y luego crea una nueva partícula
-  setTimeout(() => {
-    particle.remove(); // Elimina la partícula actual del DOM
-    createParticle(container); // Crea una nueva partícula dentro del contenedor
-  }, (duration + delay) * 1000); // El temporizador depende de la duración y el retraso de la animación
-}

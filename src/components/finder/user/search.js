@@ -21,8 +21,10 @@ function showNotification(title, body) {
 
 // Lista de bases de datos disponibles para la búsqueda
 const databases = [
-  { value: "Nexora_1", label: "nexora1.txt (20M)" },
-  { value: "Nexora_2", label: "nexora2.txt (20M)" },
+  { value: "Nexora_1", label: "nexora1.txt (5M)" },
+  { value: "Nexora_2", label: "nexora2.txt (5M)" },
+  { value: "Nexora_3", label: "nexora3.txt (5M)" },
+  { value: "Nexora_3", label: "nexora4.txt (5M)" },
 ];
 
 // Función para crear partículas animadas en la pantalla para un efecto visual dinámico
@@ -88,10 +90,13 @@ const createResultCard = ({ name, ip, password, serverip }) => {
         <span class="detail-label">IP:</span>
         <span class="detail-value">${ip === 'NULL' || ip === 'null' ? '👺 No se encontró la IP' : ip}</span>
       </div>
-      <div class="detail-row">
-        <span class="detail-label">Contraseña:</span>
-        <span class="detail-value ${password && password.length > 16 ? 'hash' : ''}">${password === 'NULL' || password === 'N/A' ? '👺 No se encontró la password' : password}</span>
-      </div>
+<div class="detail-row">
+  <span class="detail-label">Contraseña:</span>
+  <span class="detail-value 
+    ${password === 'NULL' || password === 'N/A' ? '' : (password.length <= 16 ? 'plaintext' : 'hash')}">
+    ${password === 'NULL' || password === 'N/A' ? '👺 No se encontró la password' : password}
+  </span>
+</div>
       <div class="server-status">
         <img src="${serverStatus}" alt="Server Status" onerror="this.onerror=null; this.src='http://status.mclive.eu/Nexora/nexora.net/25565/banner.png';" />
       </div>
@@ -152,6 +157,7 @@ const fetchResults = async (nick) => {
 
     // Si no hay resultados o la respuesta no es válida, mostrar un error
     if (!response.ok) {
+      showNotification("❌ Sin resultados", `No se encontraron datos para: ${nick}`);
       showError("No se encontraron resultados.");
       return;
     }
@@ -161,6 +167,7 @@ const fetchResults = async (nick) => {
 
     // Si los datos no son un array o están vacíos, mostrar error
     if (!Array.isArray(data) || data.length === 0) {
+      showNotification("❌ Sin resultados", `No se encontraron datos para: ${nick}`);
       showError("No se encontraron resultados.");
       return;
     }
@@ -170,7 +177,10 @@ const fetchResults = async (nick) => {
       resultsDiv.appendChild(createResultCard(entry));
     });
 
+    showNotification("✅ ¡Datos encontrados!", `Se encontraron ${data.length} resultados para: ${nick}`);
+
   } catch (err) {
+    showNotification("❌ Sin resultados", `No se encontraron datos para: ${nick}`);
     showError("Error al cargar resultados.");
   }
 };
@@ -223,8 +233,14 @@ document.getElementById('form').addEventListener('submit', async function (e) {
 
   const host = document.getElementById('host').value;
   const port = parseInt(document.getElementById('port').value) || 25565;
+  const version = document.getElementById('version').value;
   const username = document.getElementById('name').value;
   const password = document.getElementById('password').value;
+  const loader = document.getElementById('check-loader');
+  const buttons = document.getElementById('check-buttons');
+
+  loader.style.display = 'block';
+  buttons.style.display = 'none';
 
   try {
     const response = await fetch(API_FLAYER_URL, {
@@ -233,7 +249,7 @@ document.getElementById('form').addEventListener('submit', async function (e) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ host, port, username, password })
+      body: JSON.stringify({ host, port, version, username, password })
     });
 
     const result = await response.json();
@@ -245,7 +261,10 @@ document.getElementById('form').addEventListener('submit', async function (e) {
     }
 
   } catch (error) {
-    showNotification('⚠️ Api Off/Maintenaince', error.message);
+    showNotification('⚠️ Api Off/Mantenimiento', error.message);
+  } finally {
+    loader.style.display = 'none';
+    buttons.style.display = 'inline-block'; 
   }
 });
 
@@ -270,11 +289,18 @@ document.getElementById('form-dehash').addEventListener('submit', async function
 
   const hash = document.getElementById('hash').value.trim();
   const wordlist = document.getElementById('databaseSelect').value;
+  const loader = document.getElementById('dehash-loader');
+  const buttons = document.getElementById('dehash-buttons');
 
   if (!selectedUsername || !hash || !wordlist) {
     showNotification('⚠️ Campos incompletos', 'Debes introducir un Hash');
     return;
   }
+
+  showNotification('⏳ Dehasheando...', 'En proceso por favor espera...');
+
+  loader.style.display = 'block';
+  buttons.style.display = 'none';
 
   const API_DEHASH_URL = `https://finder.minecloud.lol/api/v2/mc/dehash/${encodeURIComponent(selectedUsername)}/${encodeURIComponent(wordlist)}/${encodeURIComponent(hash)}`;
 
@@ -296,6 +322,9 @@ document.getElementById('form-dehash').addEventListener('submit', async function
 
   } catch (error) {
     showNotification('⚠️ Api Off/Maintenaince', error.message);
+  } finally {
+    loader.style.display = 'none';
+    buttons.style.display = 'flex';
   }
 });
 

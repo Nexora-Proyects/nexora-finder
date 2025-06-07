@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="buycraft.css">
+    <title>Nexora Finder</title>
+</head>
+ <body>
+  <div id="particles-container"></div>
+
+  <!-- Encabezado con logo y botones de navegación -->
+  <header>
+    <img src="../../../../../assets/Logo.png" alt="Nexora Logo" style="height: 60px;">
+    <div class="header-buttons">
+      <button class="header-btn" onclick="window.location.href='../../../main/index.html'">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="header-btn" onclick="window.location.href='../../../settings/settings.html'">
+        <i class="fas fa-cogs"></i>
+      </button>
+    </div>
+  </header>
+ 
+<div class="info-container">
+  <img class="icon-server" src="../../../../../assets/Logo.png" alt="">  
+  <div id="store-name" class="title-server">Cargando...</div>
+  <a id="store-url" class="ip-server" href="#" target="_blank">Cargando...</a>
+</div>
+<br>
+
+  <div class="container">  
+   <div class="card select">
+    <button class="button-coupons">Cupones</button>
+    <button class="button-packages">Paquetes</button>
+    <button class="button-buys">Compras</button>
+   </div> 
+  </div>
+
+<form id="searchForm" class="search-container">
+  <input id="coupons-search" type="text" placeholder="Introduce un Código" class="search-input" required>
+  <button type="submit" class="search-button">
+    <i style="color: white;">Crear</i>
+  </button>
+</form>
+
+<div class="list-container" id="coupons-container">
+  <!-- Aquí se insertarán los cupones -->
+</div>
+
+  <!-- Script principal -->
+  <script src="buycraft.js"></script>
+  <script src="../../../particles.js"></script>
+
+ </body>
+</html>

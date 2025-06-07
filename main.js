@@ -1,8 +1,10 @@
 require('dotenv').config();
-const { app, BrowserWindow, Notification } = require('electron');
+const { app, BrowserWindow, Notification, screen } = require('electron');
 const path = require('path');
 const RPC = require("discord-rpc");
 const { autoUpdater } = require('electron-updater');
+
+let win;
 
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
@@ -60,11 +62,17 @@ autoUpdater.on('update-downloaded', () => {
 });
 
 function createWindow() {
-  const win = new BrowserWindow({
-    width: 1920,
-    height: 1080,
-    resizable: true,
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+  win = new BrowserWindow({
+    width,
+    height,
+    resizable: false,
+    maximizable: false,
+    minimizable: true,
     movable: false,
+    frame: true,
+    fullscreen: false,
     icon: path.join(__dirname, 'assets', 'Logo.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -74,6 +82,11 @@ function createWindow() {
   win.setMenu(null);
   win.loadFile('src/components/auth/login.html');
   win.maximize();
+  win.show();
+
+  win.on('unmaximize', () => {
+    win.maximize();
+  });
 }
 
 app.whenReady().then(() => {

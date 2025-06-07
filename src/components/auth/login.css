@@ -38,7 +38,7 @@ img {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-image: url('../../../assets/Background.png');
+  background-image: url('../../../assets/Background_2.png');
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;

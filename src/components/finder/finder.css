@@ -21,7 +21,7 @@
   
   body {
     font-family: 'Inter', sans-serif;
-    background-image: url('../../../assets/Background.png');
+    background-image: url('../../../assets/Background_2.png');
     background-size: cover;
     color: var(--text-primary);
     min-height: 100vh;
@@ -43,8 +43,9 @@
   
   .particle {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--accent-color);
     border-radius: 50%;
+    opacity: 0.3;
     animation: fall linear infinite;
   }
   
@@ -54,10 +55,10 @@
       opacity: 0;
     }
     10% {
-      opacity: 0.8;
+      opacity: 0.3;
     }
     90% {
-      opacity: 0.6;
+      opacity: 0.2;
     }
     100% {
       transform: translateY(100vh) rotate(360deg);
@@ -288,6 +289,14 @@
     text-align: right;
   }
   
+  .random-title {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
   .user-name {
     font-weight: 600;
     font-size: 1rem;
@@ -339,6 +348,74 @@
   .footer-links a:hover {
     color: var(--accent-color);
   }
+
+.result-account {
+  max-width: 420px;
+  margin: 20px auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 15px;
+  color: #eee;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.result-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.result-avatar:hover {
+  transform: scale(1.05);
+}
+
+.result-info {
+  flex: 1;
+}
+
+.result-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  text-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+.result-server {
+  font-weight: 400;
+  font-size: 1rem;
+  opacity: 0.8;
+  text-shadow: 0 0 3px rgba(0,0,0,0.4);
+}
+
+.result-content {
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+  padding-top: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #bbb;
+}
+
+.detail-value {
+  font-weight: 400;
+  color: #eee;
+}
   
   @media (max-width: 768px) {
     .dashboard-container {

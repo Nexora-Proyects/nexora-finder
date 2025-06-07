@@ -11,8 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
-<body class="bg-gray-100">
+<body>
 
   <!-- Efecto de partículas -->
   <div id="particles-container"></div>
@@ -68,36 +67,42 @@
     <div class="results-container" id="results"></div>
   </div>
 
-  <!-- Modal AutoCheck -->
-  <div id="check-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-      <h2 class="text-xl font-semibold mb-4">AutoCheck</h2>
+<!-- Modal AutoCheck -->
+<div id="check-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h2 class="text-xl font-semibold mb-4">AutoCheck</h2>
 
-      <!-- Campos para la peticion -->
-      <form id="form" class="space-y-4">
-        <div>
-          <label for="host" class="block text-sm font-medium text-gray-700">Host</label>
-          <input type="text" id="host" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="localhost">
-        </div>
-        <div>
-          <label for="port" class="block text-sm font-medium text-gray-700">Puerto</label>
-          <input type="text" id="port" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="25565">
-        </div>
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700">Usuario</label>
-          <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Notch">
-        </div>
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-          <input type="text" id="password" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Contraseña">
-        </div>
+    <!-- Campos para la peticion -->
+    <form id="form" class="space-y-4">
+      <div>
+        <label for="host" class="block text-sm font-medium text-gray-700">Host</label>
+        <input type="text" id="host" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="localhost">
+      </div>
+      <div>
+        <label for="port" class="block text-sm font-medium text-gray-700">Puerto</label>
+        <input type="text" id="port" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="25565">
+      </div>
+      <div>
+        <label for="version" class="block text-sm font-medium text-gray-700">Versión</label>
+        <input type="text" id="version" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="1.20.4">
+      </div>
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Usuario</label>
+        <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Notch">
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input type="text" id="password" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Contraseña">
+      </div>
 
-        <!-- Botones de acción -->
-        <div class="flex justify-between mt-4">
-          <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="CheckcloseModal()">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
-        </div>
-      </form>
+      <!-- Botones de acción -->
+      <div class="flex justify-between mt-4">
+        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="CheckcloseModal()">Cerrar</button>
+        <button id="check-buttons" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
+      </div>
+    </form>
+
+    <div id="check-loader" class="loader-check mx-auto" style="display: none; margin-top: 15px;"></div>
     </div>
   </div>
 
@@ -113,18 +118,22 @@
           <input type="text" id="hash" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="MD5, SHA1, SHA256, SHA512">
         </div>
 
-        <!-- Botones de acción -->
-        <div class="flex justify-between mt-4">
-          <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="DehashcloseModal()">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
-        </div>
+    <!-- Botones de acción -->
+    <div class="flex justify-between mt-4">
+      <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600" onclick="DehashcloseModal()">Cerrar</button>
+      <button id="dehash-buttons" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800">Enviar</button>
+    </div>
+
+    <div id="dehash-loader" class="loader-dehash mx-auto" style="display: none;"></div>
       </form>
     </div>
   </div>
+  
+  <div id="dehash-loader" class="loader-dehash" style="display: none;"></div>
 
   <!-- Script principal -->
   <script src="./search.js"></script>
+  <script src="../../particles.js"></script>
 
 </body>
-
 </html>
