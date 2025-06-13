@@ -1,91 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexora Finder</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora Finder</title>
 
-  <!-- Estilos y fuentes -->
-  <link rel="stylesheet" href="finder.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-  <!-- Efecto de partículas -->
-  <div id="particles-container"></div>
-  
-  <!-- Encabezado con logo y botones de navegación -->
-  <header>
-    <img src="../../../assets/Logo.png" alt="Nexora Logo" style="height: 60px;">
-    <div class="header-buttons">
-      <button class="header-btn" onclick="window.location.href='../main/index.html'">
-        <i class="fas fa-home"></i>
-      </button>
-      <button class="header-btn" onclick="window.location.href='../settings/settings.html'">
-        <i class="fas fa-cogs"></i>
-      </button>
-    </div>
-  </header>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="finder.css" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <!-- Logo Section -->
+        <div class="logo-section">
+          <img src="../../../assets/Logo.png" alt="Nexora Logo" class="logo" />
+          <span class="brand-text">FinderMC</span>
+        </div>
 
-  <!-- Contenido principal -->
-  <main>
-    <div class="dashboard-container">
+        <!-- Search Section -->
+        <div class="search-section">
+          <form id="searchForm" class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              id="queryInput"
+              type="text"
+              placeholder="Buscar usuario o IP..."
+              class="search-input"
+              required
+            />
+          </form>
 
-      <!-- Formulario de búsqueda -->
-      <div class="card highlight">
-        <div class="icon-container"></div>
-        <h2>Búsqueda de Usuarios ⏷</h2>
-        <br>
-        <form id="searchForm" class="search-container">
-          <input id="queryInput" type="text" placeholder="Nickname de MC o una IP" class="search-input" required>
-          <button type="submit" class="search-button">
-            <i class="fas fa-search"></i>
+          <div class="database-selector">
+            <select id="databaseSelect" class="database-select">
+              <!-- Options will be populated by JavaScript -->
+            </select>
+          </div>
+        </div>
+
+        <select id="versionSelect" class="version-select"></select>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+          <button
+            class="nav-btn"
+            onclick="window.location.href='../main/index.html'"
+            title="Inicio"
+          >
+            <i class="fas fa-home"></i>
           </button>
-        </form>
+          <button
+            class="nav-btn"
+            onclick="window.location.href='../settings/settings.html'"
+            title="Configuración"
+          >
+            <i class="fas fa-cogs"></i>
+          </button>
+        </div>
       </div>
+    </header>
 
-      <!-- Instrucciones de uso -->
-    <div class="card">
-      <h2>¿Cómo realizo una búsqueda?</h2>
-      <p>Ingresa un nombre de usuario o dirección IP en la barra superior.</p>
-      <p>Luego presiona Enter o haz clic en el icono de la lupa para buscar.</p>
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="user-avatar">
+            <img
+              id="userAvatar"
+              src="https://mc-heads.net/avatar/Steve"
+              alt="User Avatar"
+            />
+          </div>
+          <h2 class="user-name" id="userName">Usuario</h2>
+          <div class="user-status" id="userStatus">
+            <i class="fas fa-crown"></i>
+            <span>Cuenta Premium</span>
+          </div>
+        </div>
 
-      <h2>¿Qué hago si no me encuentra el nick que busco?</h2>
-      <p>Prueba con otros nombres similares o cuentas relacionadas.</p>
-      <p>Es posible que el usuario no esté en la base de datos todavía.</p>
-     </div> 
+        <!-- Stats Section -->
+        <div class="stats-section">
+          <h3 class="stats-title">Búsquedas Recientes</h3>
+          <div class="stats-list" id="recentSearches">
+            <!-- Recent searches will be populated here -->
+          </div>
+        </div>
+
+        <!-- Random Account Section -->
+        <div class="stats-section">
+          <h3 class="stats-title">Cuenta Aleatoria</h3>
+          <div
+            id="randomAccount"
+            class="result-card"
+            style="padding: 1rem; margin: 0"
+          >
+            <!-- Random account will be loaded here -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Results Section -->
+      <main class="results-section">
+        <div class="results-header">
+          <div>
+            <h1 class="results-title">Resultados de Búsqueda</h1>
+            <p class="results-count" id="resultsCount">
+              Ingresa un término para buscar
+            </p>
+          </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="results-grid" id="resultsContainer">
+          <!-- Search results will be populated here -->
+          <div class="loading-container" id="initialState">
+            <div style="text-align: center; color: var(--text-secondary)">
+              <i
+                class="fas fa-search"
+                style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5"
+              ></i>
+              <h3>Busca usuarios de Minecraft</h3>
+              <p>Ingresa un nombre de usuario o dirección IP para comenzar</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
-  <h1 class="random-title">Cuenta Aleatoria</h1>  
- 
-  <div class="result-account" id="apiResult" style="display: none;">
-    <div class="result-header">
-      <img id="playerHead" src="../../../assets/Logo.png" alt="Server-Icon" class="result-avatar" />
-      <div class="result-info">
-      <div class="result-title" id="resultName"></div>
-      <div class="result-server" id="resultServer"></div>
-    </div>
-  </div>
-
-  <div class="result-content">
-    <div class="detail-row">
-      <span class="detail-label">Compra:</span>
-      <span class="detail-value" id="resultPurchase"></span>
-    </div>
-        <div class="detail-row">
-      <span class="detail-label">Fecha:</span>
-      <span class="detail-value" id="resultDate"></span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">IP del servidor:</span>
-      <span class="detail-value" id="resultServerIp"></span>
-    </div>
-  </div>
-  </main>
-
-  <!-- Script principal -->
-  <script src="finder.js"></script>
-  <script src="../particles.js"></script>
-  
-</body>
+    <!-- Scripts -->
+    <script src="finder.js"></script>
+  </body>
 </html>

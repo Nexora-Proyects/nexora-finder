@@ -1,102 +1,165 @@
-// Función para mostrar un mensaje en la pantalla con el tipo y la animación correspondiente
-function showMessage(message, type) {
-  const messageBox = document.getElementById("messageBox"); // Obtenemos el elemento donde se mostrará el mensaje
-  messageBox.textContent = message; // Asignamos el mensaje de texto
-  messageBox.className = `message ${type} fade-in`; // Establecemos la clase para el tipo de mensaje y la animación
-  messageBox.style.display = "block"; // Mostramos el cuadro de mensaje
-}
+// DOM Elements
+const loginForm = document.getElementById("loginForm");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+const messageBox = document.getElementById("messageBox");
+const loginBtn = document.querySelector(".login-btn");
+const btnText = document.querySelector(".btn-text");
+const btnLoader = document.querySelector(".btn-loader");
 
-// Función asincrónica para manejar el inicio de sesión automático usando el refresh_token
-async function autoLogin() {
-  const refreshToken = localStorage.getItem("refresh_token"); // Recuperamos el refresh_token del almacenamiento local
-  if (!refreshToken) return; // Si no hay refresh_token, no continuamos
-
-  try {
-    const response = await fetch("https://auth.minecloud.lol/api/v1/refresh-token", {
-      method: "POST", // Enviamos una solicitud POST a la API
-      headers: {
-        "Authorization": `Bearer ${refreshToken}`, // Pasamos el refresh_token en la cabecera de autorización
-        "Content-Type": "application/json" // Indicamos que el contenido es JSON
-      }
-    });
-
-    if (response.ok) { // Si la respuesta es exitosa
-      const data = await response.json(); // Obtenemos la respuesta como JSON
-      localStorage.setItem("access_token", data.access_token); // Guardamos el nuevo access_token
-      localStorage.setItem("refresh_token", data.refresh_token); // Guardamos el nuevo refresh_token
-
-      showMessage("✅ Autologin exitoso.", "success"); // Mostramos un mensaje de éxito
-
-      setTimeout(() => {
-        document.body.classList.remove("show"); // Eliminamos la clase 'show'
-        document.body.classList.add("fade"); // Añadimos la clase 'fade' para la transición
-        setTimeout(() => {
-          window.location.href = "../main/index.html"; // Redirigimos al usuario a la página principal
-        }, 500); 
-      }, 1500); // Esperamos 1.5 segundos antes de redirigir
-    } else {
-    }
-  } catch (error) {
-  }
-}
-
-// Al cargar el DOM, intentamos hacer el autologin y mostramos la animación de entrada
-window.addEventListener("DOMContentLoaded", () => {
-  autoLogin(); // Intentamos el autologin
-  document.body.classList.add("fade", "show"); // Añadimos las clases para la animación de fade y show
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  setupEventListeners();
+  attemptAutoLogin();
+  addInputAnimations();
 });
 
-// Evento para manejar el envío del formulario de inicio de sesión
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
-  event.preventDefault(); // Prevenimos la acción por defecto del formulario
+// Setup event listeners
+function setupEventListeners() {
+  loginForm.addEventListener("submit", handleLogin);
+  togglePassword.addEventListener("click", togglePasswordVisibility);
 
-  const username = document.getElementById("username").value; // Obtenemos el valor del campo de nombre de usuario
-  const password = document.getElementById("password").value; // Obtenemos el valor del campo de contraseña
+  // Input focus animations
+  const inputs = document.querySelectorAll(".input");
+  inputs.forEach((input) => {
+    input.addEventListener("focus", () => {
+      input.parentElement.style.transform = "scale(1.02)";
+    });
 
-  // Validación del nombre de usuario con expresión regular (alfanumérico de 1 a 24 caracteres)
+    input.addEventListener("blur", () => {
+      input.parentElement.style.transform = "scale(1)";
+    });
+  });
+}
+
+// Toggle password visibility
+function togglePasswordVisibility() {
+  const type =
+    passwordInput.getAttribute("type") === "password" ? "text" : "password";
+  passwordInput.setAttribute("type", type);
+
+  const icon = togglePassword.querySelector("i");
+  icon.className = type === "password" ? "fas fa-eye" : "fas fa-eye-slash";
+}
+
+// Show message
+function showMessage(message, type) {
+  messageBox.textContent = message;
+  messageBox.className = `message-box ${type}`;
+  messageBox.style.display = "block";
+
+  // Auto hide after 5 seconds
+  setTimeout(() => {
+    messageBox.style.display = "none";
+  }, 5000);
+}
+
+// Set loading state
+function setLoadingState(loading) {
+  loginBtn.disabled = loading;
+  btnText.style.display = loading ? "none" : "inline";
+  btnLoader.style.display = loading ? "inline-flex" : "none";
+}
+
+// Auto login attempt
+async function attemptAutoLogin() {
+  const refreshToken = localStorage.getItem("refresh_token");
+  if (!refreshToken) return;
+
+  try {
+    const response = await fetch(
+      "https://auth.minecloud.lol/api/v1/refresh-token",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+
+      showMessage("✅ Autologin exitoso", "success");
+
+      setTimeout(() => {
+        window.location.href = "../main/index.html";
+      }, 1500);
+    }
+  } catch (error) {}
+}
+
+// Handle login
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  // Validation
   const usernameRegex = /^[a-zA-Z0-9_-]{1,24}$/;
-  if (!usernameRegex.test(username)) {
-    showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
-    return;
-  }
-
-  // Validación de la contraseña con expresión regular (alfanumérico de 1 a 24 caracteres)
   const passwordRegex = /^[a-zA-Z0-9_-]{1,24}$/;
-  if (!passwordRegex.test(password)) {
-    showMessage("❌ El usuario / contraseña son inválidos.", "error"); // Si el formato no es válido, mostramos un error
+
+  if (!usernameRegex.test(username) || !passwordRegex.test(password)) {
+    showMessage("❌ Usuario o contraseña inválidos", "error");
     return;
   }
 
-  const loginData = { username, password }; // Creamos el objeto con los datos del usuario para el login
+  setLoadingState(true);
 
   try {
     const response = await fetch("https://auth.minecloud.lol/api/v1/login", {
-      method: "POST", // Enviamos una solicitud POST a la API para realizar el login
+      method: "POST",
       headers: {
-        "Content-Type": "application/json" // Indicamos que el cuerpo de la solicitud es JSON
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(loginData) // Enviamos los datos del login como JSON
+      body: JSON.stringify({ username, password }),
     });
 
-    if (!response.ok) { // Si la respuesta no es exitosa
-      const errorData = await response.json(); // Obtenemos los detalles del error
-      showMessage(`❌ ${errorData.detail}`, "error"); // Mostramos el error
-    } else { // Si el login es exitoso
-      const data = await response.json(); // Obtenemos la respuesta con los tokens
-      showMessage("✅ Login exitoso.", "success"); // Mostramos mensaje de éxito
-
-      localStorage.setItem("access_token", data.access_token); // Guardamos el access_token
-      localStorage.setItem("refresh_token", data.refresh_token); // Guardamos el refresh_token
-
-      setTimeout(() => {
-        document.body.classList.remove("show"); // Eliminamos la clase 'show'
-        document.body.classList.add("fade"); // Añadimos la clase 'fade' para la transición
-        setTimeout(() => {
-          window.location.href = "../main/index.html"; // Redirigimos al usuario a la página principal
-        }, 500); 
-      }, 1500); // Esperamos 1.5 segundos antes de redirigir
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Error en el login");
     }
+
+    const data = await response.json();
+
+    // Store tokens
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
+
+    showMessage("✅ Login exitoso", "success");
+
+    // Redirect after success
+    setTimeout(() => {
+      window.location.href = "../main/index.html";
+    }, 1500);
   } catch (error) {
-    showMessage("⚠️ Api Off/Maintenaince", "error"); // Mostramos un mensaje de error si la API falla
+    showMessage(`❌ ${error.message}`, "error");
+  } finally {
+    setLoadingState(false);
   }
-});
+}
+
+// Add input animations
+function addInputAnimations() {
+  const inputs = document.querySelectorAll(".input");
+
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      if (input.value) {
+        input.style.borderColor = "var(--accent-blue)";
+      } else {
+        input.style.borderColor = "var(--border-color)";
+      }
+    });
+  });
+}
+
+// Notification permission
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission();
+}

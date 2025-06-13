@@ -1,38 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexora Finder</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora Finder</title>
 
-  <!-- Fuentes y estilos externos -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="login.css">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body class="fade-in">
+    <!-- Background Effects -->
+    <div class="background-effects">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+    </div>
 
-<body class="fade">
-  <!-- Efecto de partículas -->
-  <div id="particles-container"></div>
+    <!-- Main Container -->
+    <div class="login-container">
+      <!-- Logo Section -->
+      <div class="logo-section slide-up">
+        <div class="logo-wrapper">
+          <img src="../../../assets/Logo.png" alt="Nexora Logo" class="logo" />
+          <div class="logo-glow"></div>
+        </div>
+        <h1 class="brand-title text-gradient">Nexora Finder</h1>
+        <p class="brand-subtitle">
+          Accede a la plataforma más avanzada de búsqueda
+        </p>
+      </div>
 
-  <!-- Logo principal -->
-  <img src="../../../assets/Logo.png" style="width: 120px; justify-content: center;" alt="Logo Nexora">
+      <!-- Login Form -->
+      <div class="login-form-container slide-up">
+        <div class="card login-card">
+          <div class="form-header">
+            <h2>Iniciar Sesión</h2>
+            <p>Ingresa tus credenciales para continuar</p>
+          </div>
 
-  <!-- Formulario de inicio de sesión -->
-  <div class="login-container">
-    <div class="login-title">Nexora Login</div>
-    <form id="loginForm">
-      <input type="text" class="login-input" id="username" placeholder="Usuario" required>
-      <input type="password" class="login-input" id="password" placeholder="Contraseña" required>
-      <button type="submit" class="login-button">Iniciar sesión</button>
-    </form>
+          <form id="loginForm" class="login-form">
+            <div class="input-group">
+              <div class="input-wrapper">
+                <i class="fas fa-user input-icon"></i>
+                <input
+                  type="text"
+                  id="username"
+                  class="input"
+                  placeholder="Usuario"
+                  required
+                  autocomplete="username"
+                />
+              </div>
+            </div>
 
-    <!-- Mensajes de error o éxito -->
-    <div id="messageBox" class="message"></div>
-  </div>
+            <div class="input-group">
+              <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input
+                  type="password"
+                  id="password"
+                  class="input"
+                  placeholder="Contraseña"
+                  requiredautocomplete="current-password"
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  id="togglePassword"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
 
-  <!-- Script principal -->
-  <script src="login.js"></script>
-  <script src="../particles.js"></script>
-</body>
+            <button type="submit" class="btn btn-primary login-btn">
+              <span class="btn-text">Iniciar Sesión</span>
+              <div class="btn-loader" style="display: none">
+                <i class="fas fa-spinner fa-spin"></i>
+              </div>
+            </button>
+          </form>
+
+          <!-- Message Box -->
+          <div id="messageBox" class="message-box" style="display: none"></div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid">
+          <div class="feature-item">
+            <i class="fas fa-search"></i>
+            <span>Búsqueda Avanzada</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Seguro y Confiable</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <span>Resultados Rápidos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
 </html>

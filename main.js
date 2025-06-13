@@ -1,8 +1,8 @@
-require('dotenv').config();
-const { app, BrowserWindow, Notification, screen } = require('electron');
-const path = require('path');
+require("dotenv").config();
+const { app, BrowserWindow, Notification, screen } = require("electron");
+const path = require("path");
 const RPC = require("discord-rpc");
-const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require("electron-updater");
 
 let win;
 
@@ -25,40 +25,40 @@ rpc.on("ready", () => {
     buttons: [
       {
         label: "Unirme al Discord",
-        url: "https://discord.gg/bestfinder"
+        url: "https://discord.gg/bestfinder",
       },
       {
         label: "Comprar",
-        url: "https://discord.gg/bestfinder"
-      }
-    ]
+        url: "https://discord.gg/bestfinder",
+      },
+    ],
   });
 });
 
 rpc.login({ clientId }).catch(console.error);
 
-autoUpdater.on('update-available', (info) => {
+autoUpdater.on("update-available", (info) => {
   const notification = new Notification({
-    title: 'Nueva Actualización Disponible',
+    title: "Nueva Actualización Disponible",
     body: `Descargando la versión ${info.version}...`,
-    icon: path.join(__dirname, 'assets', 'Logo.png'),
-    silent: false
+    icon: path.join(__dirname, "assets", "Logo.png"),
+    silent: false,
   });
   notification.show();
 });
 
-autoUpdater.on('update-downloaded', () => {
+autoUpdater.on("update-downloaded", () => {
   const notification = new Notification({
-    title: 'Actualización Lista',
-    body: 'La app se reiniciará para instalar la nueva versión.',
-    icon: path.join(__dirname, 'assets', 'Logo.png'),
-    silent: false
+    title: "Actualización Lista",
+    body: "La app se reiniciará para instalar la nueva versión.",
+    icon: path.join(__dirname, "assets", "Logo.png"),
+    silent: false,
   });
   notification.show();
 
   setTimeout(() => {
     autoUpdater.quitAndInstall();
-  }, 5000); 
+  }, 5000);
 });
 
 function createWindow() {
@@ -67,40 +67,34 @@ function createWindow() {
   win = new BrowserWindow({
     width,
     height,
-    resizable: false,
-    maximizable: false,
-    minimizable: true,
-    movable: false,
-    frame: true,
-    fullscreen: false,
-    icon: path.join(__dirname, 'assets', 'Logo.png'),
+    icon: path.join(__dirname, "assets", "Logo.png"),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+      preload: path.join(__dirname, "preload.js"),
+    },
   });
 
   win.setMenu(null);
-  win.loadFile('src/components/auth/login.html');
+  win.loadFile("src/components/auth/login.html");
   win.maximize();
   win.show();
 
-  win.on('unmaximize', () => {
+  win.on("unmaximize", () => {
     win.maximize();
   });
 }
 
 app.whenReady().then(() => {
   createWindow();
-  autoUpdater.checkForUpdates(); 
+  autoUpdater.checkForUpdates();
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }

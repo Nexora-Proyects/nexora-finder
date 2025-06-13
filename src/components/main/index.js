@@ -1,42 +1,125 @@
-// Obtener el token de acceso almacenado en el localStorage
-const token = localStorage.getItem("access_token");
+// DOM Elements
+const userInfo = document.getElementById("userInfo");
+const userName = document.getElementById("userName");
+const userRole = document.getElementById("userRole");
+const userTime = document.getElementById("userTime");
+const userAvatar = document.getElementById("userAvatar");
 
-// Verificar si existe el token
-if (token) {
-  // Si el token existe, realizar una solicitud GET al endpoint para actualizar la hora
-  fetch("https://auth.minecloud.lol/api/v1/update-time", {
-    headers: {
-      // Incluir el token en la cabecera Authorization usando el esquema Bearer
-      "Authorization": "Bearer " + token
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  loadUserData();
+  setupAnimations();
+  addInteractivity();
+});
+
+// Logout function
+function logout() {
+  localStorage.clear();
+
+  // Show logout message
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("Sesión cerrada", {
+      body: "Has cerrado sesión exitosamente",
+      icon: "../../../assets/Logo.png",
+    });
+  }
+
+  // Redirect to login
+  setTimeout(() => {
+    window.location.href = "../auth/login.html";
+  }, 500);
+}
+
+// Redirect to login
+function redirectToLogin() {
+  window.location.href = "../auth/login.html";
+}
+
+// Setup animations
+function setupAnimations() {
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    },
+    {
+      threshold: 0.1,
     }
-  })
-  // Convertir la respuesta a formato JSON
-  .then(res => res.json())
-  // Manipular los datos recibidos del servidor
-  .then(data => {
-    // Mostrar el nombre del usuario en el elemento con id "name" Tambien Guardamos el name
-    document.getElementById("name").textContent = data.name;
-    localStorage.setItem("name", data.name);
-    // Mostrar el rol del usuario en el elemento con id "role" Tambien Guardamos el role
-    document.getElementById("role").textContent = data.role;
-    localStorage.setItem("role", data.role);
-    // Mostrar la hora actualizada en el elemento con id "time" Tambien Guardamos el time
-    document.getElementById("time").textContent = data.time;
-    localStorage.setItem("time", data.time);
-  })
-  // Capturar cualquier error que ocurra durante la solicitud
-  .catch(() => {
-    // Mostrar un mensaje de error en el elemento con id "userInfo"
-    document.getElementById("user-Info").textContent = "Error al Actualizar";
+  );
+
+  // Observe elements with slide-up class
+  document.querySelectorAll(".slide-up").forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px)";
+    el.style.transition = "all 0.6s ease-out";
+    observer.observe(el);
+  });
+}
+
+// Add interactivity
+function addInteractivity() {
+  // Feature cards hover effect
+  const featureCards = document.querySelectorAll(".feature-card");
+
+  featureCards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      card.style.transform = "translateY(-8px) scale(1.02)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0) scale(1)";
+    });
   });
 
-} else {
-  // Si no hay token, mostrar mensaje de token inválido en el elemento con id "userInfo"
-  document.getElementById("user-Info").textContent = "Token invalido";
+  // Quick action buttons
+  const quickActionBtns = document.querySelectorAll(".quick-action-btn");
+
+  quickActionBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      // Add click animation
+      btn.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        btn.style.transform = "scale(1)";
+      }, 150);
+    });
+  });
+
+  // Stats cards animation
+  const statCards = document.querySelectorAll(".stat-card");
+
+  statCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+    card.classList.add("slide-up");
+  });
 }
 
-// Función para cerrar sesión, limpiando los datos del almacenamiento local y redirigiendo a la página de login
-function logout() {
-  localStorage.clear(); // Elimina todos los elementos del localStorage
-  window.location.href = '../auth/login.html'; // Redirige al usuario a la página de login
+// Request notification permission
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission();
 }
+
+// Add keyboard shortcuts
+document.addEventListener("keydown", (e) => {
+  // Ctrl/Cmd + K for quick search
+  if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+    e.preventDefault();
+    window.location.href = "../finder/finder.html";
+  }
+
+  // Ctrl/Cmd + T for tools
+  if ((e.ctrlKey || e.metaKey) && e.key === "t") {
+    e.preventDefault();
+    window.location.href = "../tools/tools.html";
+  }
+
+  // Ctrl/Cmd + , for settings
+  if ((e.ctrlKey || e.metaKey) && e.key === ",") {
+    e.preventDefault();
+    window.location.href = "../settings/settings.html";
+  }
+});

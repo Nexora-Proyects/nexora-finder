@@ -1,70 +1,259 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexora Finder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="tools.css">
-</head>
-<body>
-  <div id="particles-container"></div>
-  
-  <header>
-    <img src="../../../assets/Logo.png" alt="Nexora Logo" style="height: 60px;">
-    <div class="header-buttons">
-      <button class="header-btn" onclick="window.location.href='../main/index.html'">
-        <i class="fas fa-home"></i>
-      </button>
-      <button class="header-btn" onclick="window.location.href='../settings/settings.html'">
-        <i class="fas fa-cogs"></i>
-      </button>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora Finder</title>
 
-  <main>
-    <div class="filters-container">
-      <div class="filters">
-        Filtros: 
-        <label class="filter-option">
-          <input type="checkbox" checked> Cuentas
-        </label>
-        <label class="filter-option">
-          <input type="checkbox" checked> Griefing
-        </label>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="tools.css" />
+  </head>
+  <body class="fade-in">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo-section">
+            <img
+              src="../../../assets/Logo.png"
+              alt="Nexora Logo"
+              class="logo"
+            />
+            <div class="brand-info">
+              <h1 class="brand-title text-gradient">Herramientas</h1>
+            </div>
+          </div>
+
+          <div class="nav-buttons">
+            <button
+              class="btn btn-icon"
+              onclick="window.location.href='../main/index.html'"
+              title="Inicio"
+            >
+              <i class="fas fa-home"></i>
+            </button>
+            <button
+              class="btn btn-icon"
+              onclick="window.location.href='../settings/settings.html'"
+              title="Configuración"
+            >
+              <i class="fas fa-cogs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Tools Grid -->
+        <section class="tools-section">
+          <div class="tools-grid" id="toolsGrid">
+            <!-- Buycraft Manager -->
+            <a
+              href="buycraft/manager.html"
+              class="tool-card slide-up"
+              data-category="management"
+            >
+              <div class="tool-header">
+                <div class="tool-icon buycraft">
+                  <i class="fas fa-store"></i>
+                </div>
+                <div class="tool-status">
+                  <span class="status-badge active">Activo</span>
+                </div>
+              </div>
+
+              <div class="tool-content">
+                <h3>Buycraft Manager</h3>
+                <p>
+                  Gestiona tu tienda Buycraft con herramientas avanzadas para
+                  crear cupones, gestionar productos y analizar ventas.
+                </p>
+
+                <div class="tool-features">
+                  <div class="feature-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Gestión de Cupones</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Análisis de Ventas</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-box"></i>
+                    <span>Gestión de Productos</span>
+                  </div>
+                </div>
+
+                <div class="tool-stats">
+                  <div class="stat">
+                    <span class="stat-label">Última actualización:</span>
+                    <span class="stat-value">Hace 2 días</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tool-footer">
+                <div class="tool-tags">
+                  <span class="tag">E-commerce</span>
+                  <span class="tag">Minecraft</span>
+                </div>
+                <div class="tool-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- IP Scanner -->
+            <a
+              href="ipscanner/manager.html"
+              class="tool-card slide-up"
+              data-category="security"
+            >
+              <div class="tool-header">
+                <div class="tool-icon scanner">
+                  <i class="fas fa-globe-americas"></i>
+                </div>
+                <div class="tool-status">
+                  <span class="status-badge active">Activo</span>
+                </div>
+              </div>
+
+              <div class="tool-content">
+                <h3>IP Scanner</h3>
+                <p>
+                  Escanea direcciones IP para detectar puertos abiertos,
+                  servicios activos y vulnerabilidades de seguridad.
+                </p>
+
+                <div class="tool-features">
+                  <div class="feature-item">
+                    <i class="fas fa-search"></i>
+                    <span>Escaneo de Puertos</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-server"></i>
+                    <span>Detección de Servicios</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Análisis de Seguridad</span>
+                  </div>
+                </div>
+
+                <div class="tool-stats">
+                  <div class="stat">
+                    <span class="stat-label">Rango de puertos:</span>
+                    <span class="stat-value">1-65535</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tool-footer">
+                <div class="tool-tags">
+                  <span class="tag">Seguridad</span>
+                  <span class="tag">Red</span>
+                </div>
+                <div class="tool-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- Server Scrapper -->
+            <div
+              class="tool-card slide-up coming-soon"
+              data-category="analysis"
+            >
+              <div class="tool-header">
+                <div class="tool-icon scrapper">
+                  <i class="fas fa-database"></i>
+                </div>
+                <div class="tool-status">
+                  <span class="status-badge coming-soon">Próximamente</span>
+                </div>
+              </div>
+
+              <div class="tool-content">
+                <h3>Server Scrapper</h3>
+                <p>
+                  Analiza y extrae información de servidores de Minecraft,
+                  incluyendo estadísticas de jugadores y configuraciones.
+                </p>
+
+                <div class="tool-features">
+                  <div class="feature-item">
+                    <i class="fas fa-users"></i>
+                    <span>Estadísticas de Jugadores</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración del Servidor</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Análisis de Rendimiento</span>
+                  </div>
+                </div>
+
+                <div class="tool-stats">
+                  <div class="stat">
+                    <span class="stat-label">Estado:</span>
+                    <span class="stat-value">En desarrollo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tool-footer">
+                <div class="tool-tags">
+                  <span class="tag">Minecraft</span>
+                  <span class="tag">Análisis</span>
+                </div>
+                <div class="tool-arrow">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Coming Soon Modal -->
+    <div id="comingSoonModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Próximamente</h3>
+          <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <p>
+            Esta herramienta estará disponible próximamente. Mantente atento a
+            las actualizaciones.
+          </p>
+        </div>
       </div>
     </div>
 
-  <div class="dashboard-container">
-    <a href="../tools/buycraft/manager.html" class="card buycraft pulse" style="text-decoration: none;">
-    <div class="icon-container">
-      <i class="fas fa-store"></i>
-    </div>
-    <h2 style="color: white;">BUYCRAFT MANAGER</h2>
-    <p>Creación de cupones y más a partir de una Key de BuyCraft</p>
-  </a>
-
-  <a href="../tools/ipscanner/manager.html" class="card ip-scanner pulse" style="text-decoration: none;">
-    <div class="icon-container">
-      <i class="fas fa-globe-americas"></i>
-    </div>
-    <h2 style="color: white;">IP SCANNER</h2>
-    <p>escaneo de puertos TCP [1-65535]</p>
-  </a>
-
-  <a href="#" class="card server-scrapper pulse" style="text-decoration: none;"> 
-    <div class="icon-container">
-      <i class="fas fa-user" style="color: white;"></i>
-    </div>
-    <h2 style="color: white;">SERVER SCRAPPER</h2>
-    <p>Mira las ventas más recientes de servidores de Minecraft.</p>
-    </a>
-  </div>
- </main>
-
-  <script src="tools.js"></script>
-  <script src="../particles.js"></script>
-
-</body>
+    <script src="tools.js"></script>
+  </body>
 </html>
