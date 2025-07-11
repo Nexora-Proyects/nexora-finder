@@ -1,0 +1,210 @@
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-section">
+                <img
+                        src="../../../../assets/Logo_2.png"
+                        alt="Nexora Logo"
+                        class="logo"
+                />
+                <div class="brand-info">
+                    <h1 class="brand-title text-gradient">Principal</h1>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button
+                        class="btn btn-icon logout-btn"
+                        (click)="logout()"
+                        title="Cerrar Sesión"
+                >
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+                <button
+                        class="btn btn-icon"
+                        onclick="window.location.href='/settings'"
+                        title="Configuración"
+                >
+                    <i class="fas fa-cogs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="container">
+        <!-- Tools Grid -->
+        <section class="tools-section">
+            <div class="tools-grid" id="toolsGrid">
+                <!-- Buycraft Manager -->
+                <a
+                        onclick="window.location.href='/finder'"
+                        class="tool-card slide-up"
+                        data-category="management"
+                >
+                    <div class="tool-header">
+                        <div class="tool-icon buycraft">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="tool-status">
+                            <span class="status-badge active">Disponible</span>
+                        </div>
+                    </div>
+
+                    <div class="tool-content">
+                        <h3>FinderMC</h3>
+                        <p>
+                            Realiza busquedas en mas de 40 MILLONES de registros de bases
+                            de datos de Minecraft.
+                        </p>
+
+                        <div class="tool-features">
+                            <div class="feature-item">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Scrapper Random</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>AutoCheck</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-box"></i>
+                                <span>Dehasher</span>
+                            </div>
+                        </div>
+
+                        <div class="tool-stats">
+                            <div class="stat">
+                                <span class="stat-label">Última actualización:</span>
+                                <span class="stat-value">9/6/2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-footer">
+                        <div class="tool-tags">
+                            <span class="tag">Minecraft</span>
+                            <span class="tag">Buscador</span>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Herramientas -->
+                <a
+                        class="tool-card slide-up"
+                        data-category="security"
+                >
+                    <div class="tool-header">
+                        <div class="tool-icon scanner">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="tool-status">
+                            <span class="status-badge coming-soon">Próximamente</span>
+                        </div>
+                    </div>
+
+                    <div class="tool-content">
+                        <h3>Server Scrapper</h3>
+                        <p>
+                            Analiza y extrae información de servidores de Minecraft,
+                            incluyendo estadísticas de jugadores y configuraciones.
+                        </p>
+
+                        <div class="tool-features">
+                            <div class="feature-item">
+                                <i class="fas fa-users"></i>
+                                <span>Estadísticas de Jugadores</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Configuración del Servidor</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Análisis de Rendimiento</span>
+                            </div>
+                        </div>
+
+                        <div class="tool-stats">
+                            <div class="stat">
+                                <span class="stat-label">Estado:</span>
+                                <span class="stat-value">En desarrollo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-footer">
+                        <div class="tool-tags">
+                            <span class="tag">Minecraft</span>
+                            <span class="tag">Análisis</span>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Proximamente -->
+                <div
+                        class="tool-card slide-up"
+                        data-category="analysis"
+                >
+                    <div class="tool-header">
+                        <div class="tool-icon scrapper">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="tool-status">
+                            <span class="status-badge coming-soon">Próximamente</span>
+                        </div>
+                    </div>
+
+                    <div class="tool-content">
+                        <h3>GeneratorMC</h3>
+                        <p>
+                            Genera cuentas de MineCraft con Rango
+                            Servers Como: NauticMC HyCraft etc...
+                        </p>
+
+                        <div class="tool-features">
+                            <div class="feature-item">
+                                <i class="fas fa-users"></i>
+                                <span>Cuentas de MineCraft</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Compras en Servidores</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Cuentas Checked/UnChecked</span>
+                            </div>
+                        </div>
+
+                        <div class="tool-stats">
+                            <div class="stat">
+                                <span class="stat-label">Stock</span>
+                                <span class="stat-value">+50k Cuentas de Servidores</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-footer">
+                        <div class="tool-tags">
+                            <span class="tag">MineCraft</span>
+                            <span class="tag">Generador</span>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

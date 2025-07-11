@@ -1,7 +1,7 @@
 # Nexora Finder
 
 ![Nexora Finder UI](https://i.ibb.co/sdjvCsCB/Background-Nexora.png)  
-*Frontend - Nexora Finder v1.0.0*
+*Frontend - Nexora Finder v1.0.4*
 
 ## Getting Started Locally
 
@@ -12,9 +12,8 @@ To run this project on your machine:
 3. Run the following command:
 
 ```bash
-npm install
-npm install electron --save-dev
-npm start
+pnpm install
+pnpm run tauri dev
 ```
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Nexora-Proyects/nexora-finder)

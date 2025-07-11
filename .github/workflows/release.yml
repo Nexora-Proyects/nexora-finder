@@ -1,0 +1,71 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build the app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+        with:
+          tagName: v__VERSION__
+          releaseName: "v__VERSION__"
+          releaseBody: "Ver notas de versión para más información"
+          releaseDraft: true
+          prerelease: false
+
+      - name: Generate update JSON
+        run: |
+          $version = (Get-Content -Path './src-tauri/tauri.conf.json' | ConvertFrom-Json).package.version
+          $target = "windows-x86_64"
+          $outputPath = "./windows-x86_64-update.json"
+          
+          $signature = pnpm tauri signer sign -p ${{ secrets.TAURI_KEY_PASSWORD }} --arch x86_64 --target windows "./target/release/bundle/nsis/nexora-desktop_${version}_x64-setup.exe"
+          
+          $update = @{
+            version = $version
+            notes = "Consultar notas de versión"
+            pub_date = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+            url = "https://github.com/Luisalt20/nexora-desktop/releases/download/v${version}/nexora-desktop_${version}_x64-setup.exe"
+            signature = $signature
+          }
+          
+          $update | ConvertTo-Json | Set-Content -Path $outputPath
+        shell: pwsh
+
+      - name: Upload update JSON to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: windows-x86_64-update.json

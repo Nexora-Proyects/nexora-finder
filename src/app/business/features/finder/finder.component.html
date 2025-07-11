@@ -1,0 +1,206 @@
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <img src="../../../../assets/Logo.png" alt="Nexora Logo" class="logo" />
+            <span class="brand-text">FinderMC</span>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <form class="search-container" (submit)="performSearch(); $event.preventDefault()">
+                <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+                <input
+                        type="text"
+                        placeholder="Buscar usuario o IP..."
+                        class="search-input"
+                        required
+                        [(ngModel)]="query"
+                        name="query"
+                        minlength="3"
+                />
+            </form>
+
+            <div class="database-selector">
+                <select class="database-select" [(ngModel)]="selectedDatabase">
+                    <option *ngFor="let db of databases" [value]="db.value">{{ db.label }}</option>
+                </select>
+            </div>
+        </div>
+
+        <select class="version-select" [(ngModel)]="selectedVersion">
+            <option *ngFor="let version of versions" [value]="version.value">{{ version.label }}</option>
+        </select>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-btn" routerLink="/index" title="Inicio">
+                <fa-icon [icon]="faHome"></fa-icon>
+            </button>
+            <button class="nav-btn" routerLink="/settings" title="Configuración">
+                <fa-icon [icon]="faCogs"></fa-icon>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- User Profile -->
+        <div class="user-profile">
+            <div class="user-avatar">
+                <img [src]="userAvatar" alt="User Avatar" />
+            </div>
+            <h2 class="user-name">{{ username }}</h2>
+            <div class="user-status" [ngClass]="{'premium': isPremium, 'cracked': !isPremium}">
+                <fa-icon [icon]="isPremium ? faCrown : faUser"></fa-icon>
+                <span>{{ isPremium ? 'Cuenta Premium' : 'Cuenta Cracked' }}</span>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h3 class="stats-title">Búsquedas Recientes</h3>
+            <div class="stats-list">
+                <div *ngIf="getRecentSearches().length === 0" style="color: var(--text-secondary); font-size: 0.875rem;">
+                    No hay búsquedas recientes
+                </div>
+                <div *ngFor="let search of getRecentSearches()"
+                     class="stats-item"
+                     (click)="searchFromRecent(search)">
+                    <span style="font-size: 0.875rem;">{{ search }}</span>
+                    <fa-icon [icon]="faArrowRight" style="color: var(--text-muted);"></fa-icon>
+                </div>
+            </div>
+        </div>
+
+        <!-- Random Account Section -->
+        <div class="stats-section">
+            <h3 class="stats-title">Cuenta Aleatoria</h3>
+            <div class="result-card" style="padding: 1rem; margin: 0">
+                <div *ngIf="randomAccount; else noRandomAccount">
+                    <div class="card-header" style="margin-bottom: 1rem;">
+                        <img [src]="getServerIcon(randomAccount.serverip)"
+                             alt="Server Icon"
+                             class="server-icon"
+                             onerror="this.src='https://i.ibb.co/vKt7BCY/raw-Photoroom.png'; this.onerror=null;"
+                        />
+                        <div class="card-info">
+                            <h3>{{ randomAccount.name }}</h3>
+                            <p>{{ randomAccount.serverip }}</p>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Cuenta:</strong> {{ randomAccount.purchase }}
+                        </div>
+                        <div>
+                            <strong>Fecha:</strong> {{ randomAccount.date }}
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noRandomAccount>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem;">Error al cargar cuenta aleatoria</p>
+                </ng-template>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Results Section -->
+    <main class="results-section">
+        <div class="results-header">
+            <div>
+                <h1 class="results-title">Resultados de Búsqueda</h1>
+                <p class="results-count">{{ resultsCount }}</p>
+            </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="results-grid">
+            <!-- Estado inicial -->
+            <div class="loading-container" *ngIf="!isLoading && !errorMessage && results.length === 0">
+                <div style="text-align: center; color: var(--text-secondary)">
+                    <fa-icon [icon]="faSearch" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5"></fa-icon>
+                    <h3>Busca usuarios de Minecraft</h3>
+                    <p>Ingresa un nombre de usuario o dirección IP para comenzar</p>
+                </div>
+            </div>
+
+            <!-- Loading state -->
+            <div class="loading-container" *ngIf="isLoading">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Buscando...</p>
+            </div>
+
+            <!-- Error state -->
+            <div class="error-container" *ngIf="errorMessage">
+                <fa-icon [icon]="faExclamationTriangle" class="error-icon"></fa-icon>
+                <h3>Error en la búsqueda</h3>
+                <p>{{ errorMessage }}</p>
+            </div>
+
+            <!-- Resultados -->
+            <div *ngFor="let result of results; let i = index" class="result-card" [style.animation-delay]="i * 0.1 + 's'">
+                <div class="card-header">
+                    <img [src]="getServerIcon(result.serverip)"
+                         alt="Server Icon"
+                         class="server-icon"
+                         onerror="this.src='https://i.ibb.co/vKt7BCY/raw-Photoroom.png'; this.onerror=null;"
+                    />
+                    <div class="card-info">
+                        <h3>{{ result.name }}</h3>
+                        <p>{{ result.serverip }}</p>
+                    </div>
+                </div>
+
+<div class="card-details">
+  <div class="detail-row">
+    <span class="detail-label">IP</span>
+    <span class="detail-value">
+      {{ result.ip === 'NULL' ? '👺 No encontrada' : result.ip }}
+    </span>
+  </div>
+
+  <div class="detail-row">
+    <span class="detail-label">Contraseña</span>
+    <div class="password-container">
+      <span
+        class="detail-value"
+        [class.plaintext]="result.password !== 'NULL' && result.password !== 'N/A' && result.password.length < 20"
+        [class.hash]="result.password !== 'NULL' && result.password !== 'N/A' && result.password.length >= 20"
+      >
+        {{ (result.password === 'NULL' || result.password === 'N/A') ? '👺 No encontrada' : result.password }}
+      </span>
+
+      <!-- Mostrar botón SOLO si password es hash (>=20 chars) y no es NULL/N/A -->
+      <button *ngIf="result.password !== 'NULL' && result.password !== 'N/A' && result.password.length >= 20"
+              class="dehash-btn"
+              (click)="dehashPassword(result.name, result.password, $event)">
+        <fa-icon [icon]="faUnlock"></fa-icon> Dehashear
+      </button>
+    </div>
+  </div>
+</div>
+
+
+                <div class="banner-container">
+                    <img [src]="getServerBanner(result.serverip)"
+                         alt="Server Banner"
+                         class="server-banner"
+                         onerror="this.style.display='none'; this.parentElement.classList.add('banner-hidden'); this.onerror=null;"
+                    />
+                </div>
+
+                <div class="card-actions">
+                    <button class="bot-btn"
+                            (click)="startBot(result.name, result.serverip, result.password, $event)">
+                        <fa-icon [icon]="faPlay"></fa-icon> Iniciar AutoCheck
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

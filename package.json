@@ -1,46 +1,48 @@
 {
-  "name": "nexora",
-  "version": "1.0.3",
-  "main": "main.js",
+  "name": "nexora-desktop",
+  "version": "0.1.0",
   "scripts": {
-    "start": "electron .",
-    "build:css": "npx tailwindcss -i ./src/style.css -o ./src/dist/output.css --watch",
-    "build": "electron-builder"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "tauri": "tauri"
   },
-  "repository": "https://github.com/Nexora-Proyects/nexora-finder",
-  "publish": {
-    "provider": "github",
-    "releaseType": "release"
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@angular/router": "^17.0.0",
+    "@fortawesome/angular-fontawesome": "^0.14.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@tauri-apps/api": "^1",
+    "@tauri-apps/plugin-notification": "^2.3.0",
+    "pnpm": "^10.13.1",
+    "postcss": "^8.5.6",
+    "rxjs": "~7.8.0",
+    "tailwindcss": "^3.4.17",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "electron": "^29.4.6",
-    "electron-builder": "^26.0.12",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.4.1"
-  },
-  "dependencies": {
-    "axios": "^1.9.0",
-    "discord-rpc": "^4.0.1",
-    "dotenv": "^16.5.0",
-    "electron-store": "^10.0.1",
-    "electron-updater": "^6.6.2",
-    "jwt-decode": "^4.0.0",
-    "semver": "^7.7.1"
-  },
-  "build": {
-    "appId": "com.nexora.id",
-    "productName": "Nexora Finder",
-    "win": {
-      "icon": "assets/Logo.ico",
-      "target": "nsis"
-    },
-    "asar": true,
-    "files": [
-      "**/*"
-    ],
-    "extraResources": [
-      "./assets/**/*"
-    ]
+    "@angular-devkit/build-angular": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "@tauri-apps/cli": "^1",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.4.0"
   }
 }
